@@ -8,4 +8,4 @@ from .serializers import DiskSerializer
 class DiskViewSet(ModelViewSet):
     queryset = Disk.objects.all()
     serializer_class = DiskSerializer
-    filter_class = DiskFilter
+    filterset_class = DiskFilter
