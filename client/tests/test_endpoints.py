@@ -16,6 +16,7 @@ def get_base_json(instance):
         'last_name': instance.last_name,
         'cpf': instance.cpf,
         'email': instance.email,
+        'phone': instance.phone,
         'birthday': instance.birthday.strftime('%Y-%m-%d'),
         'is_active': instance.is_active,
     }
@@ -28,6 +29,7 @@ def get_noid_json(instance):
         'last_name': instance.last_name,
         'cpf': instance.cpf,
         'email': instance.email,
+        'phone': instance.phone,
         'birthday': instance.birthday.strftime('%Y-%m-%d'),
         'is_active': instance.is_active,
     }
