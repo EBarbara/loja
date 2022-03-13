@@ -73,15 +73,18 @@ def test_update(api_client):
     disk = baker.make(Disk)
     instance = baker.make(Order, client=client, disk=disk)
     new_instance = baker.prepare(Order, client=client, disk=disk)
+    prev_json = get_base_json(instance)
     sent_json = get_noid_json(new_instance)
 
     url = reverse('pedido-detail', kwargs={'pk': instance.id})
     response = api_client().put(url, sent_json, format='json')
 
-    assert response.status_code == 200
-    assert len(response.data) == len(sent_json) + len(autogen_attrs)
-    assert response.data.items() >= sent_json.items()
-    assert all (k in response.data for k in autogen_attrs) 
+    assert response.status_code == 405
+    try:
+        actual_json = get_base_json(Order.objects.get(pk=instance.id))
+        assert prev_json == actual_json
+    except Order.DoesNotExist:
+        pytest.fail(reason="Object was removed")
 
 
 def test_delete(api_client):
@@ -90,7 +93,10 @@ def test_delete(api_client):
     url = reverse('pedido-detail', kwargs={'pk': instance.id})
     response = api_client().delete(url)
 
-    assert response.status_code == 204
-    assert Order.objects.all().count() == 0
+    assert response.status_code == 405
+    try:
+        deleted = Order.objects.get(pk=instance.id)
+    except Order.DoesNotExist:
+        pytest.fail(reason="Object was removed")
 
 # TODO criar um teste para o verbo PATCH
