@@ -34,11 +34,12 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 INSTALLED_APPS = [
     'catalog',
+    'client',
 
     'rest_framework',
     'drf_yasg',
 
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -133,3 +134,6 @@ STATIC_ROOT = 'staticfiles'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Changing auth user class
+AUTH_USER_MODEL = 'client.Client'
