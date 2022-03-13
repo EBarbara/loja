@@ -86,12 +86,18 @@ def test_update(api_client):
 
 
 def test_delete(api_client):
-    instance = baker.make(Client)
+    instance = baker.make(Client, is_active=True)
+    assert instance.is_active == True
 
     url = reverse('cliente-detail', kwargs={'pk': instance.id})
     response = api_client().delete(url)
 
-    assert response.status_code == 204
-    assert Client.objects.all().count() == 0
+    assert response.status_code == 200
+    try:
+        deleted = Client.objects.get(pk=instance.id)
+        assert deleted.is_active == False
+    except Client.DoesNotExist:
+        pytest.fail(reason="Object was hard removed")
+
 
 # TODO criar um teste para o verbo PATCH

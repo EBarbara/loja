@@ -17,6 +17,7 @@ def get_base_json(instance):
         'release_year': instance.release_year,
         'style': instance.style,
         'quantity': instance.quantity,
+        'is_active': instance.is_active,
     }
     return base_json
 
@@ -28,6 +29,7 @@ def get_noid_json(instance):
         'release_year': instance.release_year,
         'style': instance.style,
         'quantity': instance.quantity,
+        'is_active': instance.is_active,
     }
     return base_json
 

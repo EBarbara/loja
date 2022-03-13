@@ -7,3 +7,4 @@ class Disk(models.Model):
     release_year = models.IntegerField()
     style = models.CharField(max_length=50)
     quantity = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
