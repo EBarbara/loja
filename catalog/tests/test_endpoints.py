@@ -4,7 +4,7 @@ import pytest
 from django.urls import reverse
 from model_bakery import baker
 
-from ..models import Catalog
+from ..models import Disk
 
 pytestmark = pytest.mark.django_db
 
@@ -31,12 +31,13 @@ def get_noid_json(instance):
     }
     return base_json
 
+
 autogen_attrs = ['id', ]
 
 
 def test_list(api_client):
     quantity = 5
-    baker.make(Catalog, _quantity=quantity)
+    baker.make(Disk, _quantity=quantity)
 
     url = reverse('catalogo-list')
     response = api_client().get(url)
@@ -46,7 +47,7 @@ def test_list(api_client):
 
 
 def test_create(api_client):
-    instance = baker.prepare(Catalog)
+    instance = baker.prepare(Disk)
     sent_json = get_noid_json(instance)
 
     url = reverse('catalogo-list')
@@ -59,7 +60,7 @@ def test_create(api_client):
 
 
 def test_retrieve(api_client):
-    instance = baker.make(Catalog)
+    instance = baker.make(Disk)
     expected_json = get_base_json(instance)
 
     url = reverse('catalogo-detail', kwargs={'pk': instance.id})
@@ -70,8 +71,8 @@ def test_retrieve(api_client):
 
 
 def test_update(api_client):
-    instance = baker.make(Catalog)
-    new_instance = baker.prepare(Catalog)
+    instance = baker.make(Disk)
+    new_instance = baker.prepare(Disk)
     sent_json = get_noid_json(new_instance)
 
     url = reverse('catalogo-detail', kwargs={'pk': instance.id})
@@ -84,12 +85,12 @@ def test_update(api_client):
 
 
 def test_delete(api_client):
-    instance = baker.make(Catalog)
+    instance = baker.make(Disk)
 
     url = reverse('catalogo-detail', kwargs={'pk': instance.id})
     response = api_client().delete(url)
 
     assert response.status_code == 204
-    assert Catalog.objects.all().count() == 0
+    assert Disk.objects.all().count() == 0
 
 # TODO criar um teste para o verbo PATCH

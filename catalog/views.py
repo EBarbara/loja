@@ -1,9 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Catalog
-from .serializers import CatalogSerializer
+from .models import Disk
+from .serializers import DiskSerializer
 
 
-class CatalogViewSet(ModelViewSet):
-    queryset = Catalog.objects.all()
-    serializer_class = CatalogSerializer
+class DiskViewSet(ModelViewSet):
+    queryset = Disk.objects.all()
+    serializer_class = DiskSerializer

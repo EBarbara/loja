@@ -1,10 +1,10 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import CatalogViewSet
+from .views import DiskViewSet
 
 router = DefaultRouter()
-router.register(r'catalogo', CatalogViewSet, basename='catalogo')
+router.register(r'catalogo', DiskViewSet, basename='catalogo')
 
 urlpatterns = [
     path('', include(router.urls)),

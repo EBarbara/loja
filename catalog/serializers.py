@@ -1,8 +1,8 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Catalog
+from .models import Disk
 
 
-class CatalogSerializer(ModelSerializer):
+class DiskSerializer(ModelSerializer):
     class Meta:
-        model = Catalog
+        model = Disk
         fields = '__all__'

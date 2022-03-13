@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Catalog(models.Model):
+class Disk(models.Model):
     name = models.CharField(max_length=50)
     artist = models.CharField(max_length=50)
     release_year = models.IntegerField()
