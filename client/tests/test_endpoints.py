@@ -14,14 +14,10 @@ def get_base_json(instance):
         'id': instance.id,
         'first_name': instance.first_name,
         'last_name': instance.last_name,
+        'cpf': instance.cpf,
         'email': instance.email,
-        'is_staff': instance.is_staff,
+        'birthday': instance.birthday.strftime('%Y-%m-%d'),
         'is_active': instance.is_active,
-        'date_joined': instance.date_joined.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-        'last_login': 
-            instance.last_login.strftime('%Y-%m-%dT%H:%M:%S.%fZ') 
-            if instance.last_login 
-            else None,
     }
     return base_json
 
@@ -30,13 +26,14 @@ def get_noid_json(instance):
     base_json = {
         'first_name': instance.first_name,
         'last_name': instance.last_name,
+        'cpf': instance.cpf,
         'email': instance.email,
-        'is_staff': instance.is_staff,
+        'birthday': instance.birthday.strftime('%Y-%m-%d'),
         'is_active': instance.is_active,
     }
     return base_json
 
-autogen_attrs = ['id', 'date_joined', 'last_login']
+autogen_attrs = ['id', ]
 
 
 def test_list(api_client):

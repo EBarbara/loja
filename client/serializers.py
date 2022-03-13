@@ -5,4 +5,4 @@ from .models import Client
 class ClientSerializer(ModelSerializer):
     class Meta:
         model = Client
-        exclude = ['password']
+        fields = '__all__'
