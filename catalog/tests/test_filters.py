@@ -24,7 +24,7 @@ def test_filter_style(api_client, filter_catalog):
     assert response.status_code == 200
     assert len(response.data) == 2
     for disk in response.data:
-        disk['style'] == style
+        assert disk['style'] == style
         
 def test_filter_year(api_client, filter_catalog):
     year = 1970
@@ -33,7 +33,7 @@ def test_filter_year(api_client, filter_catalog):
     assert response.status_code == 200
     assert len(response.data) == 2
     for disk in response.data:
-        disk['release_year'] == year
+        assert disk['release_year'] == year
 
 def test_filter_artist(api_client, filter_catalog):
     artist = 'The Beatles'
@@ -42,7 +42,7 @@ def test_filter_artist(api_client, filter_catalog):
     assert response.status_code == 200
     assert len(response.data) == 2
     for disk in response.data:
-        disk['artist'] == artist
+        assert disk['artist'] == artist
 
 def test_filter_name(api_client, filter_catalog):
     name = 'Morrison Hotel'
@@ -51,4 +51,4 @@ def test_filter_name(api_client, filter_catalog):
     assert response.status_code == 200
     assert len(response.data) == 1
     for disk in response.data:
-        disk['name'] == name
+        assert disk['name'] == name
