@@ -41,4 +41,5 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('catalogo/', include('catalog.urls')),
     path('cliente/', include('client.urls')),
+    path('pedido/', include('order.urls')),
 ]

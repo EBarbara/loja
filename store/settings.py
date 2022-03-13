@@ -35,6 +35,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 INSTALLED_APPS = [
     'catalog',
     'client',
+    'order',
 
     'rest_framework',
     'drf_yasg',
