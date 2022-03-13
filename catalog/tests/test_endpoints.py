@@ -1,5 +1,3 @@
-import json
-
 import pytest
 from django.urls import reverse
 from model_bakery import baker
