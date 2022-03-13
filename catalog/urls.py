@@ -3,8 +3,6 @@ from rest_framework.routers import DefaultRouter
 
 from .views import CatalogViewSet
 
-app_name = 'api'
-
 router = DefaultRouter()
 router.register(r'catalogo', CatalogViewSet, basename='catalogo')
 

@@ -39,5 +39,5 @@ urlpatterns = [
         name='schema-swagger-ui'
     ),
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls', namespace='api')),
+    path('catalogo/', include('catalog.urls')),
 ]
