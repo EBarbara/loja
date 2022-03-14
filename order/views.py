@@ -42,6 +42,9 @@ class BookingView(APIView):
     def get(self, request, *args, **kwargs):
         """
         Reserva a quantidade pedida e retorna a sua id
+        Implementa as seguintes verificações:
+        Se o cliente e o disco existem no banco
+        Se existe estoque não reservado suficiente para atender à quantidade pedida
         """
         client_id = int(request.query_params['client'])
         disk_id = int(request.query_params['disk'])

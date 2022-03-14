@@ -1,19 +1,20 @@
 """
 Testes da lógica de negócios
-Testa funcionalidades diferentes do crud/filtro básico, referentes a regras de negócios 
+Testa funcionalidades diferentes do crud/filtro básico, referentes a regras de negócios
+Usa como fixtures locais um cd em situações de estoque cheio e vazio, e um cliente genérico
 """
-from datetime import datetime, timedelta
+from datetime import timedelta
 
+import pytest
 from django.db.models import Sum
 from django.urls import reverse
 from freezegun import freeze_time
 from model_bakery import baker
-import pytest
 
 from catalog.models import Disk
 from client.models import Client
 from ..models import Booking, Order
-from ..utils import MSG_FINISHED, MSG_RESERVED, MSG_SOLD
+from ..utils import MSG_RESERVED, MSG_SOLD
 
 pytestmark = pytest.mark.django_db
 
@@ -89,6 +90,8 @@ def test_booking_full(api_client, client, disk, bookings_full):
     Testa se a resposta ao início do pedido é 200,
     se a reserva NÃO foi feita, 
     e se o front é avisado que todos os discos estão reservados.
+    A fixture bookings_full não é usada diretamente, mas é necessária
+    para garantir que o banco tenha uma reserva quase igual ao estoque
     """
     quantity_ordered = 10
     data = {
@@ -141,7 +144,7 @@ def test_finish_order(api_client, client, disk):
     assert response.status_code == 200
 
     assert not Booking.objects.filter(id=booking.id).exists()
-    
+
     inventory_after = Disk.objects.get(id=disk.id).quantity
     assert inventory_after == inventory_before - quantity_ordered
 
@@ -158,23 +161,28 @@ def test_finish_order(api_client, client, disk):
 
 
 def test_booking_cancel(api_client, client, disk):
+    """
+    Testa a validade de uma reserva baseado no tempo de criação
+    A validade é verificada no queryset "valid", que deve retornar
+    somente reservas com menos de 30 min de idade
+    """
     booking = baker.make(Booking)
     booking_id = booking.id
     booking_time = booking.date
 
-    #freeze time 29 min from booking time
+    # 29 minutos após a criação
     min29 = booking_time + timedelta(minutes=29)
     with freeze_time(min29):
         booking_valid = Booking.objects.valid().filter(id=booking_id).first()
         assert booking_valid
 
-    #freeze time 30 min from booking time
+    # 30 minutos após a criação
     min30 = booking_time + timedelta(minutes=30)
     with freeze_time(min30):
         booking_valid = Booking.objects.valid().filter(id=booking_id).first()
         assert not booking_valid
 
-    #freeze time 1 year from booking time
+    # 1 ano após a criação
     year = booking_time + timedelta(days=365)
     with freeze_time(year):
         booking_valid = Booking.objects.valid().filter(id=booking_id).first()
