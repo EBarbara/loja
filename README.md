@@ -17,7 +17,6 @@ nesse caso, MC, já que não implementamos front-end
 - - Um usuário com permissão total nesse banco
 
 ## Instruções para rodar o projeto
-- Crie uma pasta staticfiles na raiz do projeto, caso ela não exista
 - Copie o arquivo .env.example, renomeando-o para .env
 - Abra o arquivo em algum editor de texto (como o Notepad, ou Nano), 
 e preencha as variáveis de conexão ao banco de dados
@@ -27,7 +26,6 @@ vá na pasta raiz do projeto e execute os seguintes comandos:
 > 
 > python manage.py migrate
 >
-> python manage.py collectstatic
 > 
 > python manage.py runserver
 
