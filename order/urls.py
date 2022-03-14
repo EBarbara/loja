@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import OrderViewSet
 
 router = DefaultRouter()
-router.register(r'pedido', OrderViewSet, basename='pedido')
+router.register(r'crud', OrderViewSet, basename='pedido')
 
 urlpatterns = [
     path('', include(router.urls)),

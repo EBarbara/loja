@@ -39,7 +39,7 @@ urlpatterns = [
         name='schema-swagger-ui'
     ),
     # path('admin/', admin.site.urls),
-    path('', include('catalog.urls')),
-    path('', include('client.urls')),
-    path('', include('order.urls')),
+    path('catalogo/', include('catalog.urls')),
+    path('cliente/', include('client.urls')),
+    path('pedido/', include('order.urls')),
 ]
