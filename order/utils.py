@@ -1,0 +1,7 @@
+MSG_BOOKING_INVALID = 'Reserva inválida'
+MSG_CLIENT_INVALID = 'Cliente não encontrado'
+MSG_DISK_INVALID = 'Disco não encontrado'
+MSG_FINISHED = 'Compra concluida com sucesso'
+MSG_INVALID = 'Dados de compra inválidos'
+MSG_RESERVED = 'Sentimos muito, mas todos os discos estão reservados'
+MSG_SOLD = 'Sentimos muito, mas todos os discos foram vendidos'
