@@ -1,3 +1,13 @@
+"""
+Testes dos filtros de pedido.
+
+Define uma pequena lista de clientes e pedidos através da fixture filter_history e da ferramenta Model Bakery
+(que gera instâncias de modelos aleatórias ou com valores fixados e que podem ser injetadas ou não no banco,
+sendo destruídas após a execução da função em que são chamadas)
+
+Cada teste verifica se o endpoint de listagem de pedidos de fato filtra o catálogo pelo atributo checado.
+Usa a mesma lógica dos testes de filtro de CDs.
+"""
 from datetime import datetime
 from django.urls import reverse
 from freezegun import freeze_time

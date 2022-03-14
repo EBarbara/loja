@@ -1,3 +1,12 @@
+"""
+Testes dos endpoints CRUD de pedidos.
+
+Seguem a mesma lógica dos testes de catálogo. Chegou a ser tentada a criação de uma classe de teste
+genérica, parametrizável ou abstrata, mas foi descartada pela alta complexidade em um projeto com foco
+na simplicidade.
+
+Os testes de UPDATE e DELETE executam testes diferentes dos de catálogo, e são explicados aqui.
+"""
 import pytest
 from django.urls import reverse
 from model_bakery import baker
@@ -69,6 +78,10 @@ def test_retrieve(api_client):
 
 
 def test_update(api_client):
+    """
+    Testa se a resposta é HTTP 405, e se a instância permanece inalterada após o chamado
+    do endpoint inexistente.
+    """
     client = baker.make(Client)
     disk = baker.make(Disk)
     instance = baker.make(Order, client=client, disk=disk)
@@ -88,6 +101,10 @@ def test_update(api_client):
 
 
 def test_delete(api_client):
+    """
+    Testa se a resposta é HTTP 405, e se a instância permanece no banco após o chamado
+    do endpoint inexistente.
+    """
     instance = baker.make(Order)
 
     url = reverse('pedido-detail', kwargs={'pk': instance.id})

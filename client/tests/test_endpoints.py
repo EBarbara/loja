@@ -1,3 +1,12 @@
+"""
+Testes dos endpoints CRUD de clientes.
+
+Seguem a mesma lógica dos testes de catálogo. Chegou a ser tentada a criação de uma classe de teste
+genérica, parametrizável ou abstrata, mas foi descartada pela alta complexidade em um projeto com foco
+na simplicidade.
+
+O único teste diferente dos de catálogo é o de DELETE.
+"""
 import json
 
 import pytest
@@ -35,6 +44,7 @@ def get_noid_json(instance):
     }
     return base_json
 
+
 autogen_attrs = ['id', ]
 
 
@@ -59,7 +69,7 @@ def test_create(api_client):
     assert response.status_code == 201
     assert len(response.data) == len(sent_json) + len(autogen_attrs)
     assert response.data.items() >= sent_json.items()
-    assert all (k in response.data for k in autogen_attrs)
+    assert all(k in response.data for k in autogen_attrs)
 
 
 def test_retrieve(api_client):
@@ -84,12 +94,16 @@ def test_update(api_client):
     assert response.status_code == 200
     assert len(response.data) == len(sent_json) + len(autogen_attrs)
     assert response.data.items() >= sent_json.items()
-    assert all (k in response.data for k in autogen_attrs) 
+    assert all(k in response.data for k in autogen_attrs)
 
 
 def test_delete(api_client):
+    """
+    Testa se a resposta é HTTP 200, se a instancia era ativa antes da deleção, permanece no banco após a deleção e se
+    deixou de ser ativa.
+    """
     instance = baker.make(Client, is_active=True)
-    assert instance.is_active == True
+    assert instance.is_active
 
     url = reverse('cliente-detail', kwargs={'pk': instance.id})
     response = api_client().delete(url)
@@ -97,9 +111,8 @@ def test_delete(api_client):
     assert response.status_code == 200
     try:
         deleted = Client.objects.get(pk=instance.id)
-        assert deleted.is_active == False
+        assert not deleted.is_active
     except Client.DoesNotExist:
         pytest.fail(reason="Object was hard removed")
-
 
 # TODO criar um teste para o verbo PATCH
